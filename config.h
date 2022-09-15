@@ -2,19 +2,19 @@
 
 /* appearance */
 static const unsigned int borderpx	= 1;        /* border pixel of windows */
-static const unsigned int gappx		= 10;        /* gaps between windows */
+static const unsigned int gappx		= 5;        /* gaps between windows */
 static const unsigned int snap		= 32;       /* snap pixel */
 static const int swallowfloating	= 0;        /* 1 means swallow floating windows by default */
 static const int showbar		= 1;        /* 0 means no bar */
 static const int topbar			= 0;        /* 0 means bottom bar */
-static const int vertpad		= 10;
-static const int sidepad		= 10;
+static const int vertpad		= 5;
+static const int sidepad		= 5;
 
 static const char *fonts[] = {
-		"JetBrains Mono:size=12",
-		"Font Awesome 6 Free:pixelsize=18:size=18:antialias=true:autohint=true",
-		"Font Awesome 6 Free Solid:pixelsize=18:size=18:antialias=true:autohint=true",
-		"Font Awesome 6 Brands:pixelsize=18:size=18:antialias=true:autohint=true"
+		"JetBrains Mono:size=10",
+		"Font Awesome 6 Free:pixelsize=16:size=16:antialias=true:autohint=true",
+		"Font Awesome 6 Free Solid:pixelsize=16:size=16:antialias=true:autohint=true",
+		"Font Awesome 6 Brands:pixelsize=16:size=16:antialias=true:autohint=true"
 };
 
 static const char norm_fg[]	= "#FFFFFF";
@@ -68,6 +68,7 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define STATUSBAR "dwmblocks"
 
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = {"dmenu_run", NULL};
@@ -113,7 +114,10 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+//	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
+	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
+	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },	
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
