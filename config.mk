@@ -10,6 +10,8 @@ MANPREFIX = ${PREFIX}/share/man
 X11INC = /usr/include/X11
 X11LIB = /usr/lib/X11
 
+BDINC = /usr/include/fribidi
+
 # Xinerama, comment if you don't want it
 #XINERAMALIBS  = -lXinerama
 #XINERAMAFLAGS = -DXINERAMA
@@ -17,13 +19,14 @@ X11LIB = /usr/lib/X11
 # freetype
 FREETYPELIBS = -lfontconfig -lXft
 FREETYPEINC = /usr/include/freetype2
+BDLIBS = -lfribidi
 # OpenBSD (uncomment)
 #FREETYPEINC = ${X11INC}/freetype2
 #KVMLIB = -lkvm
 
 # includes and libs
-INCS = -I${X11INC} -I${FREETYPEINC}
-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lX11-xcb -lxcb -lxcb-res ${KVMLIB}
+INCS = -I${X11INC} -I${FREETYPEINC} -I$(BDINC)
+LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} $(BDLIBS) -lX11-xcb -lxcb -lxcb-res ${KVMLIB}
 
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}

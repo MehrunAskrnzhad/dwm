@@ -21,6 +21,7 @@
  * To understand everything else, start reading main().
  */
 #include <errno.h>
+#include <fribidi.h>
 #include <locale.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -153,6 +154,7 @@ typedef struct {
 } Rule;
 
 /* function declarations */
+static void apply_fribidi(char *str);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -256,6 +258,7 @@ static char stext[256];
 static int statusw;
 static int statussig;
 static pid_t statuspid = -1;
+static char fribidi_text[BUFSIZ];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
@@ -298,6 +301,25 @@ static xcb_connection_t *xcon;
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
+void
+apply_fribidi(char *str)
+{
+    FriBidiStrIndex len = strlen(str);
+    FriBidiChar logical[256];
+    FriBidiChar visual[256];
+    FriBidiParType base = FRIBIDI_PAR_ON;
+    FriBidiCharSet charset;
+    fribidi_boolean result;
+    
+    fribidi_text[0] = 0;
+    if (len > 0) 
+    {
+        charset = fribidi_parse_charset("UTF-8");
+        len = fribidi_charset_to_unicode(charset, str, len, logical);
+        result = fribidi_log2vis(logical, len, &base, visual, NULL, NULL, NULL);
+        len = fribidi_unicode_to_charset(charset, visual, len, fribidi_text);
+    }
+}
 void
 applyrules(Client *c)
 {
@@ -797,15 +819,17 @@ drawbar(Monitor *m)
 			if ((unsigned char)(*s) < ' ') {
 				ch = *s;
 				*s = '\0';
-				sw = TEXTW(text) - lrpad;
-				drw_text(drw, m->ww - statusw + x, 0, sw, bh, 0, text, 0);
+                apply_fribidi(text);
+				sw = TEXTW(fribidi_text) - lrpad + 2;
+				drw_text(drw, m->ww - statusw + x, 0, sw, bh, 0, fribidi_text, 0);
 				x += sw;
 				*s = ch;
 				text = s + 1;
 			}
 		}
-		sw = TEXTW(text) - lrpad + 2;
-		drw_text(drw, m->ww - statusw + x, 0, sw, bh, 0, text, 0);
+        apply_fribidi(text);
+		sw = TEXTW(fribidi_text) - lrpad + 2;
+		drw_text(drw, m->ww - statusw + x, 0, sw, bh, 0, fribidi_text, 0);
 		sw = statusw;
 	}
 
@@ -820,9 +844,10 @@ drawbar(Monitor *m)
 		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i) && i != 0)
 		continue;
 
-		w = TEXTW(tags[i]);
+        apply_fribidi(tags[i]);
+		w = TEXTW(fribidi_text);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
+		drw_text(drw, x, 0, w, bh, lrpad / 2, fribidi_text, urg & 1 << i);
 		/*
 		if (occ & 1 << i)
 			drw_rect(drw, x + boxs, boxs, boxw, boxw,
@@ -831,14 +856,16 @@ drawbar(Monitor *m)
 		*/
 		x += w;
 	}
-	w = blw = TEXTW(m->ltsymbol);
+    apply_fribidi(m->ltsymbol);
+	w = blw = TEXTW(fribidi_text);
 	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, fribidi_text, 0);
 
 	if ((w = m->ww - sw - x) > bh) {
 		if (m->sel) {
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-			drw_text(drw, x, 0, w - 2 * sp, bh, lrpad / 2, m->sel->name, 0);
+            apply_fribidi(m->sel->name);
+			drw_text(drw, x, 0, w - 2 * sp, bh, lrpad / 2, fribidi_text, 0);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
