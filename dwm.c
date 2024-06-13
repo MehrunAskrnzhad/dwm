@@ -802,7 +802,6 @@ drawbar(Monitor *m)
 	int x, w, sw = 0;
 	int boxs = drw->fonts->h / 2;
 	/* set boxw to 0 for no marks on tags with windows */
-	// int boxw = drw->fonts->h / 6 + 2;
 	int boxw = 0;
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
@@ -811,8 +810,6 @@ drawbar(Monitor *m)
 	if (m == selmon) { /* status is only drawn on selected monitor */
 		char *text, *s, ch;
 		drw_setscheme(drw, scheme[SchemeNorm]);
-//		sw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
-//		drw_text(drw, m->ww - sw - 2 * sp, 0, sw, bh, 0, stext, 0);
 
 		x = 0;
 		for (text = s = stext; *s; s++) {
@@ -848,12 +845,6 @@ drawbar(Monitor *m)
 		w = TEXTW(fribidi_text);
 		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
 		drw_text(drw, x, 0, w, bh, lrpad / 2, fribidi_text, urg & 1 << i);
-		/*
-		if (occ & 1 << i)
-			drw_rect(drw, x + boxs, boxs, boxw, boxw,
-				m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-				urg & 1 << i);
-		*/
 		x += w;
 	}
     apply_fribidi(m->ltsymbol);
