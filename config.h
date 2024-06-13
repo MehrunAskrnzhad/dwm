@@ -18,13 +18,13 @@ static const char *fonts[] = {
 		"JoyPixels:pixelsize=16:size=16:antialias=true:autohint=true",
 };
 
-static const char norm_fg[]	= "#FFFFFF";
+static const char norm_fg[]	= "#a89984";
 static const char norm_bg[]	= "#171919";
 static const char norm_bd[]	= "#171919";
 
-static const char slct_fg[]	= "#7258b0";
+static const char slct_fg[]	= "#fbf1c7";
 static const char slct_bg[]	= "#171919";
-static const char slct_bd[]	= "#7258b0";
+static const char slct_bd[]	= "#a89984";
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
