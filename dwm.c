@@ -154,7 +154,7 @@ typedef struct {
 } Rule;
 
 /* function declarations */
-static void apply_fribidi(char *str);
+static fribidi_boolean apply_fribidi(const char *str);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -186,7 +186,6 @@ static pid_t getstatusbarpid();
 static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
 static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
-static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
@@ -218,7 +217,6 @@ static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
 static void sigstatusbar(const Arg *arg);
-static void spawn(const Arg *arg);
 static void tag(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
@@ -301,8 +299,8 @@ static xcb_connection_t *xcon;
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
-void
-apply_fribidi(char *str)
+fribidi_boolean
+apply_fribidi(const char *str)
 {
     FriBidiStrIndex len = strlen(str);
     FriBidiChar logical[256];
@@ -319,6 +317,8 @@ apply_fribidi(char *str)
         result = fribidi_log2vis(logical, len, &base, visual, NULL, NULL, NULL);
         len = fribidi_unicode_to_charset(charset, visual, len, fribidi_text);
     }
+
+    return result;
 }
 void
 applyrules(Client *c)
@@ -1098,13 +1098,6 @@ grabkeys(void)
 	}
 }
 
-void
-incnmaster(const Arg *arg)
-{
-	selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
-	arrange(selmon);
-}
-
 #ifdef XINERAMA
 static int
 isuniquegeom(XineramaScreenInfo *unique, size_t n, XineramaScreenInfo *info)
@@ -1791,23 +1784,6 @@ sigstatusbar(const Arg *arg)
 		return;
 
 	sigqueue(statuspid, SIGRTMIN+statussig, sv);
-}
-
-
-void
-spawn(const Arg *arg)
-{
-	if (arg->v == dmenucmd)
-		dmenumon[0] = '0' + selmon->num;
-	if (fork() == 0) {
-		if (dpy)
-			close(ConnectionNumber(dpy));
-		setsid();
-		execvp(((char **)arg->v)[0], (char **)arg->v);
-		fprintf(stderr, "dwm: execvp %s", ((char **)arg->v)[0]);
-		perror(" failed");
-		exit(EXIT_SUCCESS);
-	}
 }
 
 void
