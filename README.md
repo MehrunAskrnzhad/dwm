@@ -38,15 +38,15 @@ To customize dwm to your liking, edit `config.h` and recompile:
 ```sh
 sudo make clean install
 ```
-
-## Patches Included
+## Patches
+### Patches Included
 This fork includes the following patches:
 
 - **gaps**: Adds gaps between windows, providing a clean and organized look.
 - **bidi**: Adds support for right-to-left (RTL) languages, enhancing usability for multilingual users.
 - **barpadding**: Adds an outer padding (gap) to the bar, improving the visual separation and aesthetics.
 
-## Patches Not Applied
+### Patches Not Applied
 The following patches are not applied but are considered for future integration:
 
 - **combotags**: Allows viewing multiple tags at once with keybindings.
