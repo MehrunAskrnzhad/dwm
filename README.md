@@ -6,13 +6,20 @@ This is my customized version of the dynamic window manager (dwm), a minimalisti
 - **Patched Functionality** : Integrates various patches for enhanced usability and aesthetics
 - **Aesthetic Tweaks**: Custom appearance settings
 
- ## Installation
- 1. Clone the repo
-    
-    ```sh
-    git clone https://github.com/MehrunAskrnzhad/dwm.git
-    ```
-    
+## Requirements 
+To build this fork you need these extra libs
+- **fribidi**: To support the bidi patch
+- **sxhkd**: The keybindings mostly will need SXHKD since this build removed the spawn function (simplified the code a little!)
+
+- **OPTIONALLY** you can install `FontAwesome 6` and `JetBrains Mono` to use the default fonts
+
+## Installation
+1. Clone the repo
+   
+   ```sh
+   git clone https://github.com/MehrunAskrnzhad/dwm.git
+   ```
+   
 2. Build & Install
 
    ```sh
