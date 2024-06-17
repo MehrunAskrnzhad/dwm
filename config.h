@@ -11,11 +11,11 @@ static const int vertpad		= 5;
 static const int sidepad		= 5;
 
 static const char *fonts[] = {
-		"JetBrains Mono:size=10",
-		"Font Awesome 6 Free:pixelsize=16:size=16:antialias=true:autohint=true",
-		"Font Awesome 6 Free Solid:pixelsize=16:size=16:antialias=true:autohint=true",
-		"Font Awesome 6 Brands:pixelsize=16:size=16:antialias=true:autohint=true",
-		"JoyPixels:pixelsize=16:size=16:antialias=true:autohint=true",
+    "JetBrains Mono:size=10",
+    "Font Awesome 6 Free:pixelsize=16:size=16:antialias=true:autohint=true",
+    "Font Awesome 6 Free Solid:pixelsize=16:size=16:antialias=true:autohint=true",
+    "Font Awesome 6 Brands:pixelsize=16:size=16:antialias=true:autohint=true",
+    "JoyPixels:pixelsize=16:size=16:antialias=true:autohint=true",
 };
 
 static const char norm_fg[]	= "#a89984";
@@ -27,27 +27,30 @@ static const char slct_bg[]	= "#171919";
 static const char slct_bd[]	= "#a89984";
 
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { norm_fg, norm_bg, norm_bd },
-	[SchemeSel]  = { slct_fg, slct_bg, slct_bd },
+    /*               fg         bg         border   */
+    [SchemeNorm] = { norm_fg, norm_bg, norm_bd },
+    [SchemeSel]  = { slct_fg, slct_bg, slct_bd },
 };
 
 /* tagging */
 static char *tags[] = {"", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
-	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	 */
-	/* class                        instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",                       NULL,     NULL,           0,         1,          0,           0,        -1 },
-	{ "Firefox",                    NULL,     NULL,           1 << 3,    0,          0,          -1,        -1 },
-	{ "firefoxdeveloperedition",    NULL,     NULL,           1 << 3,    0,          0,          -1,        -1 },
-	{ "st",                         NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "Alacritty",                  NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "kitty",                      NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,                         NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
+    /* xprop(1):
+     *	WM_CLASS(STRING) = instance, class
+     *	WM_NAME(STRING) = title
+     */
+    /* class                        instance                 title           tags mask  isfloating  isterminal  noswallow  monitor */
+    { "Gimp",                       NULL,                    NULL,           0,         1,          0,           0,        -1 },
+    { "Firefox",                    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
+    { "firefoxdeveloperedition",    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
+    { "firefoxdeveloperedition",    "Places",                NULL,           1 << 3,    1,          0,          -1,        -1 },
+    { "st",                         NULL,                    NULL,           0,         0,          1,           0,        -1 },
+    { "Alacritty",                  NULL,                    NULL,           0,         0,          1,           0,        -1 },
+    { "kitty",                      NULL,                    NULL,           0,         0,          1,           0,        -1 },
+    { "Hiddify",                    NULL,                    NULL,           0,         1,          0,           0,        -1 },
+    { "Localsend_app",              "localsend_app",         NULL,           0,         1,          0,           0,        -1 },
+    { NULL,                         NULL,                    "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -56,19 +59,19 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
-	        /* symbol     arrange function */
-	        {"", tile}, /* first entry is default */
-	        {"", NULL}, /* no layout function means floating behavior */
-	        {"", monocle},
+    /* symbol     arrange function */
+    {"", tile}, /* first entry is default */
+    {"", NULL}, /* no layout function means floating behavior */
+    {"", monocle},
 };
 
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -105,21 +108,21 @@ static Key keys[] = {
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
-	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
-	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },	
-	{ ClkStatusText,        0,              Button4,        sigstatusbar,   {.i = 4} },	
-	{ ClkStatusText,        0,              Button5,        sigstatusbar,   {.i = 5} },	
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+    /* click                event mask      button          function        argument */
+    { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+    { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+    { ClkWinTitle,          0,              Button2,        zoom,           {0} },
+    { ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
+    { ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
+    { ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },	
+    { ClkStatusText,        0,              Button4,        sigstatusbar,   {.i = 4} },	
+    { ClkStatusText,        0,              Button5,        sigstatusbar,   {.i = 5} },	
+    { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+    { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+    { ClkTagBar,            0,              Button1,        view,           {0} },
+    { ClkTagBar,            0,              Button3,        toggleview,     {0} },
+    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
