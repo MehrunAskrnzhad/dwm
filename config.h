@@ -18,13 +18,13 @@ static const char *fonts[] = {
     "JoyPixels:pixelsize=16:size=16:antialias=true:autohint=true",
 };
 
-static const char norm_fg[]	= "#a89984";
-static const char norm_bg[]	= "#171919";
-static const char norm_bd[]	= "#171919";
+static const char norm_fg[]	= "#EBDBB2";
+static const char norm_bg[]	= "#282828";
+static const char norm_bd[]	= "#282828";
 
-static const char slct_fg[]	= "#fbf1c7";
-static const char slct_bg[]	= "#171919";
-static const char slct_bd[]	= "#a89984";
+static const char slct_fg[]	= "#FBF1C7";
+static const char slct_bg[]	= "#282828";
+static const char slct_bd[]	= "#FBF1C7";
 
 static const char *colors[][3]      = {
     /*               fg         bg         border   */
@@ -33,7 +33,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static char *tags[] = {"", "", "", "", "", "", ""};
+static char *tags[] = {"", "", "", "", "", "", ""};
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -44,7 +44,9 @@ static const Rule rules[] = {
     { "Gimp",                       NULL,                    NULL,           0,         1,          0,           0,        -1 },
     { "Firefox",                    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
     { "firefoxdeveloperedition",    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
-    { "firefoxdeveloperedition",    "Places",                NULL,           1 << 3,    1,          0,          -1,        -1 },
+    { "firefoxdeveloperedition",    "Places",                NULL,           1 << 3,    1,          0,          -1,        -1 }, /* Downloads List */
+    { "firefoxdeveloperedition",    "Toolkit",               NULL,           1,         1,          0,          -1,        -1 }, /* Picture In Picture Video */
+    { "Spotify",                    "spotify",               NULL,           1 << 6,    0,          0,           0,        -1 }, /* Picture In Picture Video */
     { "st",                         NULL,                    NULL,           0,         0,          1,           0,        -1 },
     { "Alacritty",                  NULL,                    NULL,           0,         0,          1,           0,        -1 },
     { "kitty",                      NULL,                    NULL,           0,         0,          1,           0,        -1 },
@@ -56,7 +58,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.5; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
@@ -126,3 +128,4 @@ static Button buttons[] = {
     { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
+// vim: ft=c:fdm=marker
