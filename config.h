@@ -41,18 +41,19 @@ static const Rule rules[] = {
      *	WM_NAME(STRING) = title
      */
     /* class                        instance                 title           tags mask  isfloating  isterminal  noswallow  monitor */
-    { "Gimp",                       NULL,                    NULL,           0,         1,          0,           0,        -1 },
-    { "Firefox",                    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
-    { "firefoxdeveloperedition",    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
-    { "firefoxdeveloperedition",    "Places",                NULL,           1 << 3,    1,          0,          -1,        -1 }, /* Downloads List */
-    { "firefoxdeveloperedition",    "Toolkit",               NULL,           1,         1,          0,          -1,        -1 }, /* Picture In Picture Video */
-    { "Spotify",                    "spotify",               NULL,           1 << 6,    0,          0,           0,        -1 }, /* Picture In Picture Video */
-    { "st",                         NULL,                    NULL,           0,         0,          1,           0,        -1 },
-    { "Alacritty",                  NULL,                    NULL,           0,         0,          1,           0,        -1 },
-    { "kitty",                      NULL,                    NULL,           0,         0,          1,           0,        -1 },
-    { "Hiddify",                    NULL,                    NULL,           0,         1,          0,           0,        -1 },
-    { "Localsend_app",              "localsend_app",         NULL,           0,         1,          0,           0,        -1 },
-    { NULL,                         NULL,                    "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
+	{ "Gimp",                       NULL,                    NULL,           0,         1,          0,           0,        -1 },
+	{ "Firefox",                    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
+	{ "firefoxdeveloperedition",    NULL,                    NULL,           1 << 3,    0,          0,          -1,        -1 },
+	{ "firefoxdeveloperedition",    "Places",                NULL,           1 << 3,    1,          0,          -1,        -1 }, /* Downloads List */
+	{ "firefoxdeveloperedition",    "Toolkit",               NULL,           1,         1,          0,          -1,        -1 }, /* Picture In Picture Video */
+	{ "Spotify",                    "spotify",               NULL,           1 << 6,    0,          0,           0,        -1 }, /* Picture In Picture Video */
+	{ "st",                         NULL,                    NULL,           0,         0,          1,           0,        -1 },
+	{ "Alacritty",                  NULL,                    NULL,           0,         0,          1,           0,        -1 },
+	{ "kitty",                      NULL,                    NULL,           0,         0,          1,           0,        -1 },
+	{ "Hiddify",                    NULL,                    NULL,           0,         1,          0,           0,        -1 },
+	{ "Localsend_app",              "localsend_app",         NULL,           0,         1,          0,           0,        -1 },
+	{ "Surf", 			"surf",			 "surf", 	 0, 	    1,          0,           0,        -1 },
+	{ NULL,                         NULL,                    "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
 /* layout(s) */
