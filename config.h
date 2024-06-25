@@ -53,6 +53,7 @@ static const Rule rules[] = {
 	{ "Hiddify",                    NULL,                    NULL,           0,         1,          0,           0,        -1 },
 	{ "Localsend_app",              "localsend_app",         NULL,           0,         1,          0,           0,        -1 },
 	{ "Surf", 			"surf",			 "surf", 	 0, 	    1,          0,           0,        -1 },
+	{ "zenity",                     "zenity",                NULL,           0,         1,          0,           1,        -1 }, /* zenity dialogs */
 	{ NULL,                         NULL,                    "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
