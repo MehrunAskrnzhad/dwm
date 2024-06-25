@@ -54,6 +54,7 @@ static const Rule rules[] = {
 	{ "Localsend_app",              "localsend_app",         NULL,           0,         1,          0,           0,        -1 },
 	{ "Surf", 			"surf",			 "surf", 	 0, 	    1,          0,           0,        -1 },
 	{ "zenity",                     "zenity",                NULL,           0,         1,          0,           1,        -1 }, /* zenity dialogs */
+	{ "Yad",                        "yad",                   NULL,           0,         1,          0,           1,        -1 }, /* yad dialogs */
 	{ NULL,                         NULL,                    "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
