@@ -11,7 +11,7 @@ static const int vertpad		= 5;
 static const int sidepad		= 5;
 
 static const char *fonts[] = {
-    "JetBrains Mono:size=10",
+    "monospace:size=10",
     "Font Awesome 6 Free:pixelsize=16:size=16:antialias=true:autohint=true",
     "Font Awesome 6 Free Solid:pixelsize=16:size=16:antialias=true:autohint=true",
     "Font Awesome 6 Brands:pixelsize=16:size=16:antialias=true:autohint=true",
