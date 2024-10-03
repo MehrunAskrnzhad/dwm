@@ -18,7 +18,7 @@ static const char *fonts[] = {
     "JoyPixels:pixelsize=16:size=16:antialias=true:autohint=true",
 };
 
-static const char norm_fg[]	= "#EBDBB2";
+static const char norm_fg[]	= "#928374";
 static const char norm_bg[]	= "#282828";
 static const char norm_bd[]	= "#282828";
 
